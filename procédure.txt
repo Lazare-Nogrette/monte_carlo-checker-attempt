@@ -1,0 +1,18 @@
+L'idée de l'algorithme Monte_Carlo est la suivante: simuler des parties lors desquelles l'intelligence artificielle joue aléatoirement à partir du plateau du duel en cours, en prenant en compte le score. Dans ce cas présent, on procède la façon suivante, avec la fonction monte_carlo_move():
+- On store tout les moves possibles sur le plateau actuel avec un dictionnaire. Les clés sont les positions des pièces, et les valeurs des listes de mouvements disponibles pour chacune des pièces correspondantes.
+- On instaure un dictionnaire qui stocke les scores cumulés lors de la progression. Les clés sont des tuples qui prennent en argument la position initiale et finale et les valeurs associées sont initiées à 0.
+- Ensuite, on commence les simulations sur une boucle:
+- On sauvegarde au préalable l'état actuel du plateau et le tour de l'IA, ce qui est aussi une précaution car je m'étais aperçu en testant que je pouvais avoir la main sur les deux camps et de même pour l'IA. C'est réglé désormais.
+- Ensuite, on teste aléatoirement sur un plateau fictif. Si un move est valide, on l'exécute.
+- On examine si le move est favorable ou non.
+- On ajuste sur le score selon si ce move est favorable.
+- Ensuite, on restaure le plateau tel qu'il était avant la simulation.
+- Enfin, on sélectionne selon le score quel move a le meilleur score et on l'exécute en pratique. La valeur initée à None est là au cas où on n'obtiendrait aucun move.
+
+
+Problèmes rencontrés:
+- En jouant contre le monte_carlo, je m'aperçois qu'il ne joue pas de façon du tout optimal, j'ai réussi à gagner même avec une profondeur importante.
+- De même, un bug que je n'ai pas réussi à résoudre est que l'algorithme est capable de réaliser un mouvement, mais pas certaines actions, notamment manger un pion adverse. Pourtant, il enjambe le pion comme s'il voulait le dévorer, mais le pion ne disparait pas. Il ne peux donc pas gagner, même en jouant de façon sensée.
+- Je n'ai pas réussi à lui faire arrêté une partie "proprement", malgré les précautions dans l'appel de la fonction ia_move(). C'est-à-dire, avec le monte_carlo spécifiquement, je n'obtiens pas un cas de victoire ou de défaite, le programme s'arrête dès que l'un des joueurs n'a plus de mouvements disponibles. Je soupçonne que c'est la raison pour laquelle je n'obtiens que des égalités face au modèles random et minimax.
+
+En terme de performances, monte_carlo semble compiler plus vite que minimax, surtout avec des profondeurs élevées, mais au point où j'en suis il joue de façon bien moins optimale, même en admettant qu'on obtiens une victoire, une défaite, ou qu'il puisse prendre les pions adverses.
